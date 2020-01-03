@@ -42,7 +42,7 @@ public with sharing class WarehouseCalloutService {
             for(Object record : externalRecords) {
                 Map<String, Object> values = (Map<String, Object>)record;
                 
-				Product2 productToUpdate = updateEquipment(values);  
+		Product2 productToUpdate = updateEquipment(values);  
                 allProducts.add(productToUpdate);
             }
             
