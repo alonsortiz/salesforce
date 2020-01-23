@@ -10,8 +10,7 @@ private class WarehouseSyncScheduleTest {
     
     public static String CRON_EXP = '0 0 0 21 12 ? 2022';
     
-	@isTest
-    static void testScheduledJob(){
+    @isTest static void testScheduledJob(){
         
         Test.setMock(HttpCalloutMock.class, new WarehouseCalloutServiceMock());
         
@@ -27,7 +26,7 @@ private class WarehouseSyncScheduleTest {
         
         System.assertEquals(CRON_EXP, ct.CronExpression);
         System.assertEquals(0, ct.TimesTriggered);
-		System.assertEquals('2022-12-21 00:00:00', String.valueOf(ct.NextFireTime));
+        System.assertEquals('2022-12-21 00:00:00', String.valueOf(ct.NextFireTime));
         
     }
 }
