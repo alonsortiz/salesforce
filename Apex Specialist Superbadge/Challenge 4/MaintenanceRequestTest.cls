@@ -33,8 +33,7 @@ private class MaintenanceRequestTest {
     
     public static Case updateRequest(Boolean hasWorkParts) {
         //Get Data
-        Test.startTest();
-        
+ 
         TestDataFactory data = new TestDataFactory();
         Case request = data.createRequest();
         
@@ -43,10 +42,13 @@ private class MaintenanceRequestTest {
         
         Integer numOfRequests = [Select COUNT() From Case];
         
-       	System.assertEquals(1, numOfRequests);
+        System.assertEquals(1, numOfRequests);
+        
+        request.Status = 'Closed';
+        
+        Test.startTest();
         
         //Trigger Request creation.
-        request.Status = 'Closed';
         update request;
         
         Test.stopTest();
@@ -54,7 +56,7 @@ private class MaintenanceRequestTest {
         numOfRequests = [Select COUNT() From Case];
         
         //Assert - new Request has been created.
-       	System.assertEquals(2, numOfRequests);
+        System.assertEquals(2, numOfRequests);
         
         Case newRequest = [Select Id, Vehicle__c, Equipment__c, Date_Due__c  From Case Where Status = 'New' Limit 1];
         
@@ -65,17 +67,19 @@ private class MaintenanceRequestTest {
     
     @isTest static void testRequest_Negative() {
         //Get Data
-        Test.startTest();
         
         TestDataFactory data = new TestDataFactory();
         Case request = data.createRequest();
 
         Integer numOfRequests = [Select COUNT() From Case];
         
-       	System.assertEquals(1, numOfRequests);
+        System.assertEquals(1, numOfRequests);
+        
+        request.Status = 'Working';
+        
+        Test.startTest();
         
         //Trigger Request creation.
-        request.Status = 'Working';
         update request;
         
         Test.stopTest();
@@ -83,20 +87,20 @@ private class MaintenanceRequestTest {
         numOfRequests = [Select COUNT() From Case];
         
         //Assert - A new Request is not needed.
-       	System.assertEquals(1, numOfRequests);
+        System.assertEquals(1, numOfRequests);
       
     }
     
     @isTest static void testRequest_Bulk() {
         //Get Data
         TestDataFactory data = new TestDataFactory();
-        
-        Test.startTest();
-        
+    
         List<Case> requests = data.createRequests();
 
         for(Case record : requests)
             record.Status = 'Closed';
+        
+        Test.startTest();
         
         update requests;
         
