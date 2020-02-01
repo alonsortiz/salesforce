@@ -7,11 +7,9 @@
 
 public class ProjectCalloutService {
     //Complete the implementation for business and callout logic
-    
-    public static final String PROJECT_SERVICE_TOKEN = 'ProjectServiceToken';
-    
+
     @InvocableMethod 
-	public static void postOpportunityToPMS(List<Id> opportunityIds){
+    public static void postOpportunityToPMS(List<Id> opportunityIds){
         if(!opportunityIds.isEmpty())
             System.enqueueJob(new QueueablePMSCall(opportunityIds[0]));
     }
@@ -54,7 +52,7 @@ public class ProjectCalloutService {
         }
         
         private HttpRequest createRequest(Opportunity opp) {
-            String projectServiceToken = ServiceTokens__c.getInstance(PROJECT_SERVICE_TOKEN).Token__c;
+            String projectServiceToken = ServiceTokens__c.getInstance('ProjectServiceToken').Token__c;
             
             Http http = new Http();
             HttpRequest request = new HttpRequest();

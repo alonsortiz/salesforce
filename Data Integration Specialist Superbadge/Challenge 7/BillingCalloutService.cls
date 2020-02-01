@@ -7,7 +7,7 @@
 
 public with sharing class BillingCalloutService {
     //Implement business and callout logic methods here
-
+    
     public static final ServiceCredentials__c billingServiceCredential = ServiceCredentials__c.getInstance('BillingServiceCredential');
      
     public static void callBillingService(Map<Id, Project__c> oldMap, List<Project__c> projects) {
@@ -29,13 +29,13 @@ public with sharing class BillingCalloutService {
     public static void calloutToSquarePeg(Map<String, Double> projectsInfo) {
         List<String> okProjects = new List<String>();
         
-        for(Id record : projectsInfo.keySet()) {
+        for(String record : projectsInfo.keySet()) {
             String res = invokeCallout(record, projectsInfo.get(record));
             
             if(res == 'OK')
                 okProjects.add(record);
         }
-		
+        
         if(!okProjects.isEmpty()) {
             List<Project__c> projectsToUpdate = [Select Id, Status__c 
                                                  From Project__c 

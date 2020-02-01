@@ -38,7 +38,7 @@ public class TestDataFactory {
         List<Opportunity> opportunities = createOpportunity();
         Project__c project = new Project__c();
         
-        project.ProjectRef__c = 'Test Project Ref';
+        project.ProjectRef__c = 'project-01';
         project.Name = 'Test Project Name';
         project.Opportunity__c = opportunities[0].Id;
         project.Start_Date__c = Date.today();
@@ -51,11 +51,44 @@ public class TestDataFactory {
         return project;
     }
     
+    public List<Project__c> createProjects() {
+        List<Opportunity> opportunities = createOpportunity();
+        List<Project__c> projects = new List<Project__c>();
+        Integer numOfProjects = 50;
+        
+        for(Integer i = 0; i < numOfProjects; i++) {
+            Project__c project = new Project__c();
+            
+            project.ProjectRef__c = 'project-0'+(i+1);
+            project.Name = 'Test Project Name '+(i+1);
+            project.Opportunity__c = opportunities[0].Id;
+            project.Start_Date__c = Date.today();
+            project.End_Date__c = Date.today().addDays(1);
+            project.Billable_Amount__c = 150000;
+            project.Status__c = 'Running';
+            
+            projects.add(project);
+        }
+
+        insert projects;
+        
+        return projects;
+    }
+    
     public void createToken() {
         ServiceTokens__c token = new ServiceTokens__c();
-        token.Name = ProjectCalloutService.PROJECT_SERVICE_TOKEN;
+        token.Name = 'ProjectServiceToken';
         token.Token__c = 'token-01';
         
         insert token;
+    }
+    
+    public void createServiceCredentials() {
+        ServiceCredentials__c credentials = new ServiceCredentials__c();
+        credentials.Name = 'BillingServiceCredential';
+        credentials.Username__c = 'user1';
+        credentials.Password__c = 'pass1';
+
+        insert credentials;
     }
 }

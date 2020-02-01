@@ -16,7 +16,7 @@ private class ProjectRESTServiceTest {
         
         Test.startTest();
         
-        String post = ProjectRESTService.postProjectData('Test Project Ref', 'Test Project Name', (String)opportunities[0].Id, 
+        String post = ProjectRESTService.postProjectData('project-01', 'Test Project Name', (String)opportunities[0].Id, 
                                                          Date.today(), Date.today().addDays(1), 150000, 'Running');
         
         Test.stopTest();
@@ -38,12 +38,12 @@ private class ProjectRESTServiceTest {
         TestDataFactory data = new TestDataFactory();
         Project__c project = data.createProject();
         
-        System.assert(project.ProjectRef__c == 'Test Project Ref');
+        System.assert(project.ProjectRef__c == 'project-01');
         System.assert(project.Billable_Amount__c == 0);
         
         Test.startTest();
         
-        String post = ProjectRESTService.postProjectData('Test Project Ref', 'Test Project Name', (String)project.Opportunity__c, 
+        String post = ProjectRESTService.postProjectData('project-01', 'Test Project Name', (String)project.Opportunity__c, 
                                                          Date.today(), Date.today().addDays(1), 150000, 'Running');
         
         Test.stopTest();
@@ -64,6 +64,7 @@ private class ProjectRESTServiceTest {
     
     @isTest static void testErrorProject() {
         TestDataFactory data = new TestDataFactory();
+             
         Project__c project = data.createProject();
         
         project.Name = null;
@@ -72,13 +73,13 @@ private class ProjectRESTServiceTest {
         
         Test.startTest();
         
-        String post = ProjectRESTService.postProjectData('Test Project Ref', 'Test Project Name', (String)project.Opportunity__c, 
+        String post = ProjectRESTService.postProjectData('project-01', 'Test Project Name', (String)project.Opportunity__c, 
                                                          Date.today(), Date.today().addDays(1), 150000, 'Running');
         
         Test.stopTest();
 
         String expectedErrorMsg = 'Upsert failed. First exception on row 0; first error: DUPLICATE_VALUE,'
-            					+ ' duplicate value found: <unknown> duplicates value on record with id: <unknown>: []';
+                                + ' duplicate value found: <unknown> duplicates value on record with id: <unknown>: []';
 
         System.assertEquals(post, expectedErrorMsg);
         
