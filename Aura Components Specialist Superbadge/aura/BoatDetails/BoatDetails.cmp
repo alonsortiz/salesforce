@@ -1,0 +1,38 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	<aura:attribute name="boat" type='Boat__c'/>
+    <aura:attribute name="id" type='Id'/>
+    
+    <aura:handler event="c:BoatSelected" action="{!c.onBoatSelected}"/>
+    <aura:handler event="c:BoatReviewAdded" name="boatReviewAdded" action="{!c.onBoatReviewAdded}"/>
+    
+    <force:recordData aura:id="service"
+                      recordId="{!v.id}"
+                      targetFields="{!v.boat}"
+                      recordUpdated="{!c.onRecordUpdated}"
+                      mode="VIEW"
+                      fields="Id, 
+                              Name, 
+                              Description__c, 
+                              Price__c, 
+                              Length__c, 
+                              Contact__r.Name, 
+                              Contact__r.Email, 
+                              Contact__r.HomePhone, 
+                              BoatType__r.Name, 
+                              Picture__c" />
+ 
+    <aura:if isTrue="{! !empty(v.boat) }">
+        <lightning:tabset aura:id="tabs">
+            <lightning:tab label="Details" id="boatdetailstab">
+                <c:BoatDetail boat="{!v.boat}" />
+            </lightning:tab>
+            <lightning:tab label="Reviews" id="boatreviewtab">
+                <c:BoatReviews boat="{!v.boat}" aura:id="reviewsCmp"/> 
+            </lightning:tab>
+            <lightning:tab label="Add Review" id="boataddreviewtab">
+                <c:AddBoatReview boat="{!v.boat}" />
+            </lightning:tab>
+        </lightning:tabset>
+    </aura:if>
+
+</aura:component>

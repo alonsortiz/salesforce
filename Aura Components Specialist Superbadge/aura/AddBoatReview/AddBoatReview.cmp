@@ -1,0 +1,56 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	<aura:attribute name="boat" type='Boat__c'/>
+    <aura:attribute name="boatReview" type='BoatReview__c' access="PRIVATE"/>
+    <aura:attribute name="recordError" type='String' access="PRIVATE"/>
+    
+    <aura:registerEvent name="boatReviewAdded" type="c:BoatReviewAdded"/> 
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <force:recordData aura:id="service"
+                      layoutType="FULL"
+                      targetFields="{!v.boatReview}"
+                      targetError="{!v.recordError}"
+                      recordUpdated="{!c.onRecordUpdated}"
+                      fields="Id, 
+                              Name, 
+                              Comment__c, 
+                              Boat__c, 
+                              Rating__c" />
+    
+    <div class="slds-form slds-form_stacked slds-m-horizontal_small">
+        <div class="slds-form-element">
+            <div class="slds-form-element__control">
+                <lightning:input name="title" label="Title:" value="{!v.boatReview.Name}"/>
+            </div>
+        </div>
+        
+        <div class="slds-form-element">
+            <div class="slds-form-element__control">
+                <lightning:inputRichText label="Description:" value="{!v.boatReview.Comment__c}" variant="label-stacked" 
+                                         placeholder ="Comment" labelVisible="true"
+                                         disabledCategories="FORMAT_FONT"/>
+            </div>
+        </div>
+        
+        <div class="slds-form-element">
+            <div class="slds-form-element__control">
+                <!--<lightning:input name="rating" label="Rating:" readonly="true" value="" />-->
+                <label class="slds-text-title">Rating:</label>
+                <c:FiveStarRating value="{!v.boatReview.Rating__c}" />
+            </div>
+        </div>
+        
+        <div class="slds-form-element">
+            <div class="slds-form-element__control slds-grid slds-grid_align-center">
+                <lightning:button iconName="utility:save" label="Submit" onclick="{!c.onSave}" />
+            </div>
+        </div>
+    </div>
+    
+    <!-- Display Lightning Data Service errors -->
+    <aura:if isTrue="{!!(empty(v.recordError))}">
+        <div class="recordError">{!v.recordError}</div>
+    </aura:if>
+    
+</aura:component>
