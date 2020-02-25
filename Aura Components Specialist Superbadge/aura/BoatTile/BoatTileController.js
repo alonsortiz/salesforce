@@ -23,6 +23,6 @@
 	};
         
 	helper.fireAppEvent(component, event, helper, "e.c:PlotMapMarker", params);
-     
+      
     }
 })
