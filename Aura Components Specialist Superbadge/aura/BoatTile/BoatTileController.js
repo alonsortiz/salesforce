@@ -13,16 +13,16 @@
             "boat" : boat
         };
 
-		helper.fireAppEvent(component, event, helper, "e.c:BoatSelected", params);
+	helper.fireAppEvent(component, event, helper, "e.c:BoatSelected", params);
 
-		params = {
-            "sObjectId" : boat.Id,
-            "lat" : boat.Geolocation__Latitude__s.toString(),
-            "long" : boat.Geolocation__Longitude__s.toString(),
-            "label": boat.Name
-        };
+	params = {
+	    "sObjectId" : boat.Id,
+	    "lat" : boat.Geolocation__Latitude__s.toString(),
+	    "long" : boat.Geolocation__Longitude__s.toString(),
+	    "label": boat.Name
+	};
         
-		helper.fireAppEvent(component, event, helper, "e.c:PlotMapMarker", params);
+	helper.fireAppEvent(component, event, helper, "e.c:PlotMapMarker", params);
      
     }
 })
