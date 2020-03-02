@@ -5,7 +5,7 @@
  * Challenge 1: Automate record creation 
  */
  
-public with sharing class MaintenanceRequestHelper {
+public without sharing class MaintenanceRequestHelper {
     
     public static Case generateCase(Map<Id, Case> caseMap, Id record) {
         Case checkup = new Case();
