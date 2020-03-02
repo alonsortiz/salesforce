@@ -6,7 +6,7 @@
  */
 
 trigger orderTrigger on Order (before insert, after insert, before update, after update, before delete, after delete, after undelete) {
-	if(trigger.isAfter && trigger.isUpdate) {    
+    if(trigger.isAfter && trigger.isUpdate) {    
         OrderHelper.AfterUpdate(Trigger.new, Trigger.old);
-	}
+    }
 }
