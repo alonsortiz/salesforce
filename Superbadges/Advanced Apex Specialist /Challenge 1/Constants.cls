@@ -2,11 +2,11 @@
  * By: Alonso Ortiz - 25/Feb/2020
  * From: https://trailhead.salesforce.com/en/content/learn/superbadges/superbadge_aap
  *
- * Challenge 1: Update the codebase to use best practices 
+ * Challenge 1: Update the codebase to use best practices
  */
 
 public class Constants {
-	public static final Integer DEFAULT_ROWS = 5;
+    public static final Integer DEFAULT_ROWS = 5;
     public static final String SELECT_ONE = System.Label.Select_One;
     public static final String INVENTORY_LEVEL_LOW = System.Label.Inventory_Level_Low;
     public static final List<Schema.PicklistEntry> PRODUCT_FAMILY = Product2.Family.getDescribe().getPicklistValues();
