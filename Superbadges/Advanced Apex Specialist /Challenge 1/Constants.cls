@@ -2,7 +2,7 @@
  * By: Alonso Ortiz - 25/Feb/2020
  * From: https://trailhead.salesforce.com/en/content/learn/superbadges/superbadge_aap
  *
- * Challenge 1: Update the codebase to use best practices
+ * Challenge 1: Update the codebase to use best practices 
  */
 
 public class Constants {
