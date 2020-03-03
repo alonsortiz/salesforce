@@ -5,6 +5,7 @@
  * Helper class with data, for all test classes coded for the challenge
  */
 
+@isTest
 public class TestDataFactory {
     public Account createAccount() {
         Account acc = new Account();
