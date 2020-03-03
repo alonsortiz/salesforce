@@ -5,6 +5,7 @@
  * Challenge 4: Test automation logic
  */
 
+@isTest
 public class TestDataFactory {
     
     public Vehicle__c createVehicle() { 
