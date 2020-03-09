@@ -25,9 +25,9 @@ public class Product2Helper {
      * @param List<Product2> newList
      * @param List<Product2> oldList
     **/
-    public static void AfterUpdate(List<Product2> newList){
+    public static void AfterUpdate(List<Product2> newList, List<Product2> oldList){
         //ToDo: Declare a List of Product2 records named needsAnnouncement
-		List<Product2> needsAnnouncement = new List<Product2>();
+        List<Product2> needsAnnouncement = new List<Product2>();
         
         //ToDo: Declare a Map of Strings to Inventory_Setting__mdt records
         Map<String, Inventory_Setting__mdt> inventory  = new Map<String, Inventory_Setting__mdt>();
@@ -41,10 +41,13 @@ public class Product2Helper {
         // Use the corresponding Inventory Setting record to determine the correct Low Quantity Alert
         // If the Product's Quantity Remaining has been changed to less than the Low Quantity Alert
         //      add it to the needsAnnouncement list
+        Integer i = 0;
         for(Product2 product : newList) {
-            if(product.Quantity_Remaining__c == inventory.get(product.Family).Low_Quantity_Alert__c) {
-                needsAnnouncement.add(product);
+            if(product.Quantity_Remaining__c < inventory.get(product.Family).Low_Quantity_Alert__c && 
+               product.Quantity_Remaining__c != oldList[i].Quantity_Remaining__c) {
+                   needsAnnouncement.add(product);
             }
+            i++;
         }
 
         //ToDo: Pass records to the postAlerts method
