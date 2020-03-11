@@ -52,7 +52,7 @@ public class OrderExtension {
         standardSetController.setPageSize(Constants.DEFAULT_ROWS);
  
         if(!standardSetController.getRecords().isEmpty()) { 
-        	setOrderItemList();
+            setOrderItemList();
         }
     }
     
@@ -172,7 +172,7 @@ public class OrderExtension {
      * @description
     **/
     public void First(){
-		standardSetController.first();
+	standardSetController.first();
         setOrderItemList();
     }
 
@@ -182,7 +182,7 @@ public class OrderExtension {
      * @description
     **/
     public void Next(){
-		standardSetController.next();
+	standardSetController.next();
         setOrderItemList();
     }
 
@@ -192,7 +192,7 @@ public class OrderExtension {
      * @description
     **/
     public void Previous(){
-		standardSetController.previous();
+	standardSetController.previous();
         setOrderItemList();
     }
 
@@ -201,7 +201,7 @@ public class OrderExtension {
      * @description
     **/
     public void Last(){
-		standardSetController.last();
+	standardSetController.last();
         setOrderItemList();
     }
 
