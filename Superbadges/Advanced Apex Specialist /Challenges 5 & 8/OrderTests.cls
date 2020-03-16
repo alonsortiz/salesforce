@@ -53,7 +53,7 @@ private class OrderTests {
         Integer existingOrderItems = ext.orderRecord.OrderItems.size();
         
         //Pie Data
-		System.assertEquals(existingOrderItems, ext.pieData.size());
+	System.assertEquals(existingOrderItems, ext.pieData.size());
     
         //Family picklist
         System.assertEquals(ext.GetFamilyOptions().size(), Constants.PRODUCT_FAMILY.size()+1);
