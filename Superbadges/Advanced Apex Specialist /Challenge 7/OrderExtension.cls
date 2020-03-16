@@ -150,6 +150,9 @@ public class OrderExtension {
                     if(orderItem.Id != null) {
                         //Existing record to delete
                         orderItemsToDelete.add(orderItem);
+
+                        //Remove record from the Map
+                        orderItemMap.remove(orderItem.Product2Id);
                     }
                 }
             }
