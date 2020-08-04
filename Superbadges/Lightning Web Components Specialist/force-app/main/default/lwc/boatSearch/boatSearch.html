@@ -7,19 +7,20 @@
                 <lightning-button label="New Boat" slot="actions" onclick={createNewBoat}></lightning-button>
                 
                 <p class="slds-var-p-horizontal_small">
-                    <!-- boatSearchForm component goes here -->
+                    <!-- boatSearchForm component goes here --> <!-- onsearch={searchBoats}  -->
                     <c-boat-search-form onsearch={searchBoats} class="slds-align_absolute-center"></c-boat-search-form>
                 </p>
             </lightning-card>
         </lightning-layout-item>
         <!-- Bottom -->
         <lightning-layout-item size="12" class="slds-p-top_small slds-is-relative">
-            <template if:false={isLoading}>
+            <!-- TBD: isLoading logic -->
+            <template if:true={isLoading}>
                 <!-- Spinner goes here -->
                 <lightning-spinner alternative-text="Loading"></lightning-spinner>
             </template>
 
-            <template if:true={isLoading}>
+            <template if:false={isLoading}>
                 <!-- boatSearchResults goes here -->
                 <c-boat-search-results></c-boat-search-results>
                 <!-- onloading={handleLoading} ondoneloading={handleDoneLoading} -->

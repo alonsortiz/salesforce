@@ -1,4 +1,6 @@
-import { LightningElement, api, wire } from 'lwc';
+import { LightningElement, api, wire, track } from 'lwc';
+import { publish, MessageContext } from 'lightning/messageService';
+import getBoats from '@salesforce/apex/BoatDataService.getBoats';
 
 // ...
 export default class BoatSearchResults extends LightningElement {
@@ -9,15 +11,21 @@ export default class BoatSearchResults extends LightningElement {
     isLoading = false;
 
     // wired message context
-    //@wire
+    @wire(MessageContext)
     messageContext;
-    wiredBoats(result) { }
+    // wired getBoats method 
+    @wire(getBoats, {boatTypeId: '$boatTypeId'})
+    wiredBoats(result) { 
+        if(result) {
+            this.boats = result;
+        }
+    }
 
     // public function that updates the existing boatTypeId property
     // uses notifyLoading
-    @api
+    @api 
     searchBoats(boatTypeId) { 
-
+        this.boatTypeId = boatTypeId;
     }
 
     // this public function must refresh the boats asynchronously
@@ -25,7 +33,10 @@ export default class BoatSearchResults extends LightningElement {
     refresh() { }
 
     // this function must update selectedBoatId and call sendMessageService
-    updateSelectedTile() { }
+    updateSelectedTile(event) {
+        this.selectedBoatId = event.detail.boatId;
+        //sendMessageService(this.selectedBoatId);
+    }
 
     // Publishes the selected boat Id on the BoatMC.
     sendMessageService(boatId) { }
