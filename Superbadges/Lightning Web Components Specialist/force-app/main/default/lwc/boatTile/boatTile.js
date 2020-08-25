@@ -1,6 +1,5 @@
 // imports
 import { LightningElement, api } from 'lwc';
-//import backgroundUrl from '@salesforce/resourceUrl/background';
 
 const TILE_WRAPPER_SELECTED_CLASS = 'tile-wrapper selected';
 const TILE_WRAPPER_UNSELECTED_CLASS = 'tile-wrapper';
