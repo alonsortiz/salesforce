@@ -11,7 +11,7 @@ const SUCCESS_VARIANT = 'success';
 const SUCCESS_TITLE = 'Success';
 const MESSAGE_SHIP_IT = 'Ship It!';
 
-const CONST_ERROR = 'Error';
+const ERROR_TITLE = 'Error';
 const ERROR_VARIANT = 'error';
 
 export default class BoatSearchResults extends LightningElement {
@@ -41,18 +41,24 @@ export default class BoatSearchResults extends LightningElement {
     // public function that updates the existing boatTypeId property
     // uses notifyLoading
     @api 
-    searchBoats(boatTypeId) { 
+    searchBoats(boatTypeId) {
+        this.notifyLoading(true);
+
         this.boatTypeId = boatTypeId;
+
+        if(this.boatTypeId !== '') {
+            this.notifyLoading(false);
+        }
     }
 
     // this public function must refresh the boats asynchronously
     // uses notifyLoading
     @api
     async refresh() {
-        this.notifyLoading(this.isLoading);
+        this.notifyLoading(true);
 
         await refreshApex(this.boats).then(() => {
-            this.notifyLoading(this.isLoading);
+            this.notifyLoading(false);
         })
     }
 
@@ -60,16 +66,6 @@ export default class BoatSearchResults extends LightningElement {
     updateSelectedTile(event) {
         this.selectedBoatId = event.detail.boatId;
 
-        this.template
-            .querySelectorAll("c-boat-tile")
-            .forEach(tile => {
-                if(tile.boat.Id === this.selectedBoatId) {
-                    tile.selectedBoatId = this.selectedBoatId;
-                } else {
-                    tile.selectedBoatId = '';
-                }
-            });
-      
         this.sendMessageService(this.selectedBoatId);
     }
 
@@ -84,11 +80,8 @@ export default class BoatSearchResults extends LightningElement {
     // Show a toast message with the title
     // clear lightning-datatable draft values
     handleSave(event) {
-        this.isLoading = true;
-
         const recordInputs = event.detail.draftValues.slice().map(draft => {
             const fields = Object.assign({}, draft);
-            //console.log(JSON.stringify(fields));
             return { fields };
         });
         const promises = recordInputs.map(recordInput =>
@@ -103,25 +96,23 @@ export default class BoatSearchResults extends LightningElement {
                     variant: SUCCESS_VARIANT
                 })
             );
-
-            this.draftValues = [];
-
-            this.refresh();
         }).catch(error => { 
             this.dispatchEvent(
                 new ShowToastEvent({
-                    title: CONST_ERROR,
-                    message: error.message,
+                    title: ERROR_TITLE,
+                    message: error.body.message,
                     variant: ERROR_VARIANT
                 })
             );
-        }).finally(() => { 
-            this.isLoading = false;
+        }).finally(() => {
+            this.draftValues = [];
+            this.refresh(); 
         });
     }
 
     // Check the current value of isLoading before dispatching the doneloading or loading custom event
     notifyLoading(isLoading) { 
+        this.isLoading = isLoading;
         const eventType = isLoading ? 'loading' : 'doneloading';
         
         this.dispatchEvent(new CustomEvent(eventType));
