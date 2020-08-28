@@ -46,7 +46,7 @@ export default class BoatSearchResults extends LightningElement {
 
         this.boatTypeId = boatTypeId;
 
-        if(this.boatTypeId !== '') {
+        if(this.boatTypeId !== undefined) {
             this.notifyLoading(false);
         }
     }
